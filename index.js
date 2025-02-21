@@ -7,12 +7,23 @@ const rl = readline.createInterface({
 });
 
 function isValidNumber(input) {
-    input = input.replace(',', '.'); // Mengganti koma dengan titik
+    input = input.replace(',', '.');
     return !isNaN(input) && input.trim() !== '';
 }
 
 function isValidChoice(input) {
-    return /^[1-9]$|^1[0-2]$/.test(input); // Hanya menerima angka bulat 1-12
+    return /^[1-9]$|^1[0-2]$/.test(input);
+}
+
+function askNumber(question, callback) {
+    rl.question(question, (num) => {
+        num = num.replace(',', '.');
+        if (!isValidNumber(num)) {
+            console.log("Input tidak valid. Harap masukkan angka yang benar.");
+            return askNumber(question, callback);
+        }
+        callback(parseFloat(num));
+    });
 }
 
 function showMenu() {
@@ -37,30 +48,14 @@ function askChoice() {
     rl.question("Masukkan pilihan (1-12): ", (choice) => {
         if (!isValidChoice(choice)) {
             console.log("Pilihan tidak valid. Masukkan angka antara 1-12.");
-            return showMenu();
+            return askChoice();
         }
-
         choice = parseInt(choice);
 
         if ([1, 2, 3, 4, 5, 6, 10, 11].includes(choice)) {
-            rl.question("Masukkan angka pertama: ", (num1) => {
-                num1 = num1.replace(',', '.');
-                if (!isValidNumber(num1)) {
-                    console.log("Input tidak valid. Harap masukkan angka yang benar.");
-                    return showMenu();
-                }
-                
-                rl.question("Masukkan angka kedua: ", (num2) => {
-                    num2 = num2.replace(',', '.');
-                    if (!isValidNumber(num2)) {
-                        console.log("Input tidak valid. Harap masukkan angka yang benar.");
-                        return showMenu();
-                    }
-                    
-                    num1 = parseFloat(num1);
-                    num2 = parseFloat(num2);
+            askNumber("Masukkan angka pertama: ", (num1) => {
+                askNumber("Masukkan angka kedua: ", (num2) => {
                     let result;
-
                     switch (choice) {
                         case 1: result = calculator.tambah(num1, num2); break;
                         case 2: result = calculator.kurang(num1, num2); break;
@@ -72,22 +67,13 @@ function askChoice() {
                         case 11: result = calculator.minimum(num1, num2); break;
                         default: result = "Operasi tidak valid";
                     }
-
                     console.log(`Hasil: ${result}`);
                     showMenu();
                 });
             });
-        } else if ([7, 8, 9, 12].includes(choice)) {
-            rl.question("Masukkan angka: ", (num) => {
-                num = num.replace(',', '.');
-                if (!isValidNumber(num)) {
-                    console.log("Input tidak valid. Harap masukkan angka yang benar.");
-                    return showMenu();
-                }
-                
-                num = parseFloat(num);
+        } else {
+            askNumber("Masukkan angka: ", (num) => {
                 let result;
-
                 switch (choice) {
                     case 7: result = calculator.absolut(num); break;
                     case 8: result = calculator.faktorial(parseInt(num)); break;
@@ -95,7 +81,6 @@ function askChoice() {
                     case 12: result = calculator.bulatkan(num); break;
                     default: result = "Operasi tidak valid";
                 }
-
                 console.log(`Hasil: ${result}`);
                 showMenu();
             });
