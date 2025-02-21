@@ -12,7 +12,7 @@ function isValidNumber(input) {
 }
 
 function isValidChoice(input) {
-    return /^[1-9]$|^1[0-2]$/.test(input);
+    return /^(0|[1-9]$|^1[0-2])$/.test(input);
 }
 
 function askNumber(question, callback) {
@@ -27,28 +27,35 @@ function askNumber(question, callback) {
 }
 
 function showMenu() {
-    console.log("\nKalkulator Sederhana");
-    console.log("Pilih operasi:");
-    console.log("1. Tambah");
-    console.log("2. Kurang");
-    console.log("3. Kali");
-    console.log("4. Bagi");
-    console.log("5. Pangkat");
-    console.log("6. Modulus");
-    console.log("7. Absolut");
-    console.log("8. Faktorial");
-    console.log("9. Cek Prima");
-    console.log("10. Maksimum");
-    console.log("11. Minimum");
-    console.log("12. Bulatkan");
+    console.log("\n\tKalkulator CLI");
+    console.log("==================================");
+    console.log("||\tPilih operasi:\t\t||");
+    console.log("||\t1. Tambah\t\t||");
+    console.log("||\t2. Kurang\t\t||");
+    console.log("||\t3. Kali \t\t||");
+    console.log("||\t4. Bagi \t\t||");
+    console.log("||\t5. Pangkat\t\t||");
+    console.log("||\t6. Modulus\t\t||");
+    console.log("||\t7. Absolut\t\t||");
+    console.log("||\t8. Faktorial\t\t||");
+    console.log("||\t9. Cek Prima\t\t||");
+    console.log("||\t10. Maksimum\t\t||");
+    console.log("||\t11. Minimum\t\t||");
+    console.log("||\t12. Bulatkan\t\t||");
+    console.log("||\t0. Keluar\t\t||");
+    console.log("==================================");
     askChoice();
 }
 
 function askChoice() {
-    rl.question("Masukkan pilihan (1-12): ", (choice) => {
+    rl.question("Masukkan pilihan (0-12): ", (choice) => {
         if (!isValidChoice(choice)) {
-            console.log("Pilihan tidak valid. Masukkan angka antara 1-12.");
+            console.log("Pilihan tidak valid. Masukkan angka antara 0-12.");
             return askChoice();
+        } else if (choice == 0){
+            console.log("\n****** Senang Bisa Membantu ******\n");
+            rl.close();
+            return;
         }
         choice = parseInt(choice);
 
@@ -67,8 +74,11 @@ function askChoice() {
                         case 11: result = calculator.minimum(num1, num2); break;
                         default: result = "Operasi tidak valid";
                     }
-                    console.log(`Hasil: ${result}`);
-                    showMenu();
+                    console.log("==================================");
+                    console.log(`Hasil: ${result}\n\n`);
+                    setTimeout(() => {
+                        showMenu();
+                    }, 2000); // Jeda 2 detik
                 });
             });
         } else {
@@ -84,7 +94,7 @@ function askChoice() {
                 console.log(`Hasil: ${result}`);
                 showMenu();
             });
-        }
+        } 
     });
 }
 

@@ -132,9 +132,12 @@ function minimum(a, b) {
  * @param {number} a 
  * @returns {number}
  */
+
 function bulatkan(a) {
-    return (a % 1 >= 0.5) ? (a - (a % 1) + 1) : (a - (a % 1));
+    return (a >= 0) ? (a % 1 >= 0.5 ? a - (a % 1) + 1 : a - (a % 1)) 
+                    : (a % 1 <= -0.5 ? a - (a % 1) - 1 : a - (a % 1));
 }
+
 
 // Export hasil akhir
 module.exports = { tambah, kurang, kali, bagi, pangkat, faktorial, isPrima, modulus, absolut, maksimum, minimum, bulatkan };
