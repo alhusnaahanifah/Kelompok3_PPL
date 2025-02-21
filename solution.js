@@ -5,6 +5,7 @@
  * @returns {number}
  */
 function tambah(a, b) {
+    return a + b;
 }
 
 /**
@@ -14,6 +15,7 @@ function tambah(a, b) {
  * @returns {number}
  */
 function kurang(a, b) {
+    return a - b;
 }
 
 /**
@@ -23,6 +25,7 @@ function kurang(a, b) {
  * @returns {number}
  */
 function kali(a, b) {
+    return a * b;
 }
 
 /**
@@ -32,7 +35,9 @@ function kali(a, b) {
  * @returns {number | string}
  */
 function bagi(a, b) {
- 
+    if (b === 0)
+        return "Pembagian oleh nol tidak diperbolehkan";
+    return a / b;
 }
 
 /**
@@ -42,6 +47,7 @@ function bagi(a, b) {
  * @returns {number}
  */
 function pangkat(a, b) {
+    return a**b
 }
 
 /**
@@ -50,6 +56,15 @@ function pangkat(a, b) {
  * @returns {number}
  */
 function faktorial(n) {
+    if (n < 0)
+        return "Tidak ada faktorial untuk angka negatif";
+    if (n === 0)
+        return 1;
+    let hasil = 1;
+    for (let i = 1; i <= n; i++) {
+        hasil *= i;
+    }
+    return hasil;
 }
 
 /**
@@ -58,6 +73,15 @@ function faktorial(n) {
  * @returns {boolean}
  */
 function isPrima(n) {
+    if (n === 2)
+        return true; // 2 adalah bilangan prima
+    if (n < 2 || n % 2 === 0)
+        return false;
+    for (let i = 3; i * i <= n; i += 2) {
+        if (n % i === 0)
+            return false;
+    }
+    return true;
 }
 
 /**
@@ -70,6 +94,7 @@ function isPrima(n) {
  * @returns {number}
  */
 function modulus(a, b) {
+    return a % b;
 }
 
 /**
@@ -78,6 +103,7 @@ function modulus(a, b) {
  * @returns {number}
  */
 function absolut(a) {
+    return a < 0 ? -a : a;
 }
 
 
@@ -88,6 +114,7 @@ function absolut(a) {
  * @returns {number}
  */
 function maksimum(a, b) {
+    return a > b ? a : b;
 }
 
 /**
@@ -97,6 +124,7 @@ function maksimum(a, b) {
  * @returns {number}
  */
 function minimum(a, b) {
+    return a < b ? a : b;
 }
 
 /**
@@ -105,6 +133,8 @@ function minimum(a, b) {
  * @returns {number}
  */
 function bulatkan(a) {
+    return (a % 1 >= 0.5) ? (a - (a % 1) + 1) : (a - (a % 1));
 }
 
 // Export hasil akhir
+module.exports.default = { tambah, kurang, kali, bagi, pangkat, faktorial, isPrima, modulus, absolut, maksimum, minimum, bulatkan };
