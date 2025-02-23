@@ -6,7 +6,7 @@ Anggota:
 
 # Tugas Praktikum: Implementasi Fungsi Matematika dalam Node.js
 
-### **Fungsi yang Harus Diimplementasikan:**
+### **Fungsi yang Diimplementasikan:**
 1. **tambah(a, b)** → Menjumlahkan dua angka
 2. **kurang(a, b)** → Mengurangkan dua angka
 3. **kali(a, b)** → Mengalikan dua angka
